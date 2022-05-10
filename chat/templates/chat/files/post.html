@@ -1,0 +1,33 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<div class="container class_form" data-aos="fade-up">
+			<div class="section-title">
+				<center><h2>Загрузить файл</h2></center>
+			</div>
+	<br>
+	<br>
+  			<div class="row justify-content-center">
+				 <form method="POST" style="width: 50%;" enctype="multipart/form-data">
+					  {% csrf_token %}
+                     				<div class="form_error"> {{form.non_field_errors }}</div>
+						  {% for f in form %}
+						  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label> {{ f }}</p>
+						  <div class="form-error">{{ f.errors }}</div>
+						  {% endfor %}
+
+					 {{file_form.file}}
+        <div style="float: right; margin-bottom: 10%; margin-top: 10%;" class="form-group row" data-aos="fade-up">
+			      <button type="submit" class="btn btn-primary">ЗАГРУЗИТЬ</button >
+			  </div>
+    </form>
+
+
+			</div>
+  		</div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'chat/base.html' %}
+{% load i18n %}
+{% block breadcrumbs %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="breadcrumbs" data-aos="fade-up">
+			<div class="section-title">
+				<center><h2>ОШИБКА ПОДТВЕРЖДЕНИЯ</h2></center>
+			</div>
+</div>
+{% endblock %}
+{% block content %}
+
+
+<div class="container class_form" data-aos="fade-up">
+
+<br>
+<br>
+<center><p>Ваша ссылка некорректна, попробуйте снова!</p></center>
+
+<br>
+<center><p><a href="{% url 'chat-register'%}" type="submit" class="btn btn-primary">Назад</a></p></center>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
+

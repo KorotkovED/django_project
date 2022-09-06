@@ -1,0 +1,21 @@
+{% extends 'chat/base.html' %}
+
+{% block content %}
+<br>
+<br>
+<center><h1>{{ file.feed.titles}}</h1></center>
+<br>
+<br>
+<div class="container class_form" data-aos="fade-up">
+    <h3>Институт: {{ file.feed.institutes}}</h3>
+    <h3>Курс: {{ file.feed.course}}</h3>
+    <h3>Семестр: {{ file.feed.semestr}}</h3>
+    <h3>Дисциплина: {{ file.feed.subjects}}</h3>
+    <h3>Описание: {{ file.feed.descriptions}}</h3>
+    <h3>Дедлайн: {{ file.feed.date}}</h3>
+    <h3>Цена: {{ file.feed.prices}}</h3>
+        <center><h4><a href="{{ file.file.url}}" download="{{file.file.url}}">Посмотреть файл</a></h4></center>
+        <center><h4><a href="{% url 'chat-home' %}?u={{file.feed.user.id}}" >Написать</a></h4></center>
+
+</div>
+{% endblock %}

@@ -12,11 +12,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App using Django</title>
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome-free/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -28,7 +28,7 @@
 
 <body class='bg-dark text-light'>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary w-100 border-bottom border-primary mb-2" id="top-nav">
-        <a class="navbar-brand" href="{% url 'chat-home' %}">Chat App</a>
+        <a class="navbar-brand" href="{% url 'chat-home' %}">Help App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -40,10 +40,25 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item {% if page == 'post' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'post' %}"><i class="fa fa-sign-out-alt"></i>Загрузить файлы</a>
+                    <a class="nav-link" href="{% url 'post' %}"><i class=" "></i>Загрузить файлы</a>
                 </li>
                 <li class="nav-item {% if page == 'buyfile' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'buyfile' %}"><i class="fa fa-sign-out-alt"></i>Скачать файлы</a>
+                    <a class="nav-link" href="{% url 'buyfile' %}"><i class=""></i>Скачать файлы</a>
+                </li>
+<!--                <li class="nav-item {% if page == 'help' %} active {% endif %}">-->
+<!--                    <a class="nav-link" href="{% url 'help' %}"><i class="fa fa-sign-out-alt"></i>Помочь</a>-->
+<!--                </li>-->
+                <li class="nav-item {% if page == 'help' %} active {% endif %}">
+                    <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Помощь
+                 </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+<!--                  <a class="dropdown-item" href="#">Общий чат </a>-->
+                  <a class="dropdown-item" href = "{% url 'write_help' %}">Написать объявление о помощи</a>
+                  <a class="dropdown-item" href="{% url 'find_help' %}">Стать помощником</a>
+                </div>
+                </li>
                 </li>
                 {% endif %}
                 <li class="nav-item">
@@ -53,7 +68,7 @@
             </ul>
             {% if user.is_authenticated %}
 
-            <span><a class="text-light"  href="{% url 'chat-profile' %}"><i class="fa fa-user"></i> <b>Welcome {{user.first_name}}!</b></a></span> {% endif %}
+            <span><a class="text-light"  href="{% url 'chat-profile' %}"><i class="fa fa-user"></i> <b>Привет,{{user.username}}!</b></a></span> {% endif %}
         </div>
 
     </nav>
@@ -64,6 +79,7 @@
         {% endblock %}
         {% block content %}
         {% endblock %}
+
     </div>
 </body>
 <script>

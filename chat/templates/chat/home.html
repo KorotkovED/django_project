@@ -1,4 +1,6 @@
 {% extends 'chat/base.html' %} {% load static %} {% block header %}
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" rel="stylesheet"/>-->
+
 <style>
     #user-list a.bg-dark {
         background-color: rgb(107, 107, 107) !important;
@@ -6,6 +8,10 @@
     
     .list-group-item {
         cursor: pointer
+    }
+    .anyClass {
+        height:677px;
+        overflow-y: scroll;
     }
     
     .chat-bubble {
@@ -23,27 +29,31 @@
         max-width: 100%;
     }
 </style>
+
 {% endblock %} {% block content %}
 <div class="container" style="height: 75%;">
     <div class="card bg-dark h-100 border-light">
         <div class="card-body h-100">
             <div class="row h-100">
                 <div class="col-md-4 border-right h-100">
-                    <div class="list-group bg-dark" id='user-list'>
-                        {% for u in users %} {% if not u.id == 1 and not u.id == user.id %}
+                    <div class="list-group bg-dark anyClass" id='user-list'>
+
+                        {% for u in users %}
+                        {% if not u.id == 1 and not u.id == user.id %}
                         <a class="list-group-item {% if u.id != chat_id %}bg-dark{% else %}bg-primary{% endif %} text-white" href="{% url 'chat-home' %}?u={{u.id}}">
                             <div>
                                 <p>{{u.first_name}} {{u.last_name}} ({{u.username}})</p>
                             </div>
                         </a>
-                        {% endif %} {% endfor %}
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-md-8 h-100">
                     {% if not chat_id > 0 %}
                     <div class="h-100 d-flex flex-column justify-content-center align-items-center">
-                        <h3>Start Chat now</h3>
-                        <p><small class="text-muted">Please select a person to chat with.</small></p>
+                        <h3>Начните общение!</h3>
+                        <p><small class="text-muted">Выберете человека, чтобы написать ему.</small></p>
                     </div>
                     {% else%}
                     <div id="chat-box-field" class="h-100">
@@ -52,14 +62,14 @@
                             <div class="p-2 w-100 d-flex justify-content-end">
                                 <div class=" chat-bubble  ml-2 mb-2 bg-primary text-light rounded" data-id="{{chat.id}}">
                                     <p>{{chat.message}}</p>
-                                    <div class="d-flex justify-content-between"><small>You</small> <small>{{chat.date_created|date:"M-d-Y H:i"}}</small></div>
+                                    <div class="d-flex justify-content-between"><small>Ты</small> <small>{{chat.date_created|date:"M-d-Y H:i"}}</small></div>
                                 </div>
                             </div>
                             {% else %}
                             <div class="p-2 w-100 d-flex justify-content-start">
                                 <div class="chat-bubble mr-2 mb-2 bg-light text-dark rounded" data-id="{{chat.id}}">
                                     <p>{{chat.message}}</p>
-                                    <div class=" d-flex justify-content-between"><small>Sender</small> <small>{{chat.date_created|date:"M-d-Y H:i"}}</small></div>
+                                    <div class=" d-flex justify-content-between"><small>От</small> <small>{{chat.date_created|date:"M-d-Y H:i"}}</small></div>
                                 </div>
                             </div>
                             {% endif %} {% endfor %}
@@ -70,9 +80,9 @@
                                     <input type="hidden" name="user_from" value="{{ user.id }}">
                                     <input type="hidden" name="user_to" value="{{ chat_id }}">
                                     <div class="col-md-10 h-100">
-                                        <textarea name="message" id="" class="h-100 w-100 form-control" placeholder="Write your message here"></textarea>
+                                        <textarea name="message" id="" class="h-100 w-100 form-control" placeholder="Написать"></textarea>
                                     </div>
-                                    <button class="button btn btn-primary h-100 w-100 justify-content-center align-items-center d-flex">SEND</button>
+                                    <button class="button btn btn-primary h-100 w-100 justify-content-center align-items-center d-flex">Отправить</button>
                                 </form>
                             </div>
                         </div>
@@ -175,4 +185,6 @@
         })
     }
 </script>
+
 {% endblock %}
+

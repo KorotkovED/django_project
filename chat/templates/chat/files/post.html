@@ -1,6 +1,89 @@
 {% extends 'chat/base.html' %}
 {% load static %}
+ {% block header %}
+<title>Загрузить файлы</title>
+{% endblock header %}
+
 {% block content %}
+<!--<style>-->
+<!--	/* === Wrapper Styles === */-->
+<!--	#FileUpload {-->
+<!--	  display: flex;-->
+<!--	  justify-content: center;-->
+<!--	}-->
+<!--	.wrapper {-->
+<!--	  margin: 30px;-->
+<!--	  padding: 10px;-->
+<!--	  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);-->
+<!--	  border-radius: 10px;-->
+<!--	  background-color: white;-->
+<!--	  width: 415px;-->
+<!--	}-->
+
+<!--	/* === Upload Box === */-->
+<!--	.upload {-->
+<!--	  margin: 10px;-->
+<!--	  height: 85px;-->
+<!--	  border: 8px dashed #e6f5e9;-->
+<!--	  display: flex;-->
+<!--	  justify-content: center;-->
+<!--	  align-items: center;-->
+<!--	  border-radius: 5px;-->
+<!--	}-->
+<!--	.upload p {-->
+<!--	  margin-top: 12px;-->
+<!--	  line-height: 0;-->
+<!--	  font-size: 22px;-->
+<!--	  color: #0c3214;-->
+<!--	  letter-spacing: 1.5px;-->
+<!--	}-->
+<!--	.upload__button {-->
+<!--	  background-color: #e6f5e9;-->
+<!--	  border-radius: 10px;-->
+<!--	  padding: 0px 8px 0px 10px;-->
+<!--	}-->
+<!--	.upload__button:hover {-->
+<!--	  cursor: pointer;-->
+<!--	  opacity: 0.8;-->
+<!--	}-->
+
+<!--	/* === Uploaded Files === */-->
+<!--	.uploaded {-->
+<!--	  width: 375px;-->
+<!--	  margin: 10px;-->
+<!--	  background-color: #e6f5e9;-->
+<!--	  border-radius: 10px;-->
+<!--	  display: flex;-->
+<!--	  flex-direction: row;-->
+<!--	  justify-content: flex-start;-->
+<!--	  align-items: center;-->
+<!--	}-->
+<!--	.file {-->
+<!--	  display: flex;-->
+<!--	  flex-direction: column;-->
+<!--	}-->
+<!--	.file__name {-->
+<!--	  display: flex;-->
+<!--	  flex-direction: row;-->
+<!--	  justify-content: space-between;-->
+<!--	  align-items: baseline;-->
+<!--	  width: 300px;-->
+<!--	  line-height: 0;-->
+<!--	  color: #0c3214;-->
+<!--	  font-size: 18px;-->
+<!--	  letter-spacing: 1.5px;-->
+<!--	}-->
+<!--	.fa-times:hover {-->
+<!--	  cursor: pointer;-->
+<!--	  opacity: 0.8;-->
+<!--	}-->
+<!--	.fa-file-pdf {-->
+<!--	  padding: 15px;-->
+<!--	  font-size: 40px;-->
+<!--	  color: #0c3214;-->
+<!--	}-->
+<!--</style>-->
+
 <br>
 <br>
 <div class="container class_form" data-aos="fade-up">
@@ -9,16 +92,95 @@
 			</div>
 	<br>
 	<br>
+
+<div><center><h6>
+	Чтобы вставить ссылку на облачное хранилище (диск), нужно скопировать ссылку в блокнот и блокнот прикрепить на сайт.
+</h6></center></div>
+	<br>
   			<div class="row justify-content-center">
 				 <form method="POST" style="width: 50%;" enctype="multipart/form-data">
 					  {% csrf_token %}
-                     				<div class="form_error"> {{form.non_field_errors }}</div>
-						  {% for f in form %}
-						  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label> {{ f }}</p>
-						  <div class="form-error">{{ f.errors }}</div>
-						  {% endfor %}
+					 <div class="form_error"> {{form.non_field_errors }}</div>
+<!--						  {% for f in form %}-->
+<!--						  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label> {{ f }}</p>-->
+<!--						  <div class="form-error">{{ f.errors }}</div>-->
+<!--						  {% endfor %}-->
+<!--					         fields = ('number_course','number_semestr','type_materials','institute','subjectt','title','description','price')-->
 
-					 {{file_form.file}}
+						  <p><label class="form-label" for="{{ form.title.id_for_label }}">Заголовок: </label> {{ form.title }}</p>
+						  <div class="form-error">{{ form.title.errors }}</div>
+					 <p><label class="form-label" for="{{ form.number_course.id_for_label }}">Курс: </label> {{ form.number_course }}</p>
+						  <div class="form-error">{{ form.number_course.errors }}</div>
+					 <p><label class="form-label" for="{{ form.number_semestr.id_for_label }}">Семестр: </label> {{ form.number_semestr }}</p>
+						  <div class="form-error">{{ form.number_semestr.errors }}</div>
+					 <p><select name = "institute" required class="custom-select" aria-label="Институт">
+						  <option selected>Институт</option>
+						  <option value="ИВТИ">ИВТИ</option>
+						  <option value="ГПИ">ГПИ</option>
+						  <option value="ИЭЭ">ИЭЭ</option>
+							 <option value="ИГВИЭ">ИГВИЭ</option>
+						  <option value="ИнЭИ">ИнЭИ</option>
+						  <option value="ИРЭ">ИРЭ</option>
+						 <option value="ИЭТЭ">ИЭТЭ</option>
+						  <option value="ИТАЭ">ИТАЭ</option>
+						  <option value="ИЭВТ">ИЭВТ</option>
+							 <option value="ЭнМИ">ЭнМИ</option>
+						 <option value="Другой">Другой</option>
+						</select></p>
+						  <div class="form-error">{{ form.institute.errors }}</div>
+
+					 <p><select name = "type_materials" required class="custom-select" aria-label="Тип материала">
+						  <option selected>Тип материала</option>
+						  <option value="Практические работы">Практические работы</option>
+						  <option value="Лабораторные работы">Лабораторные работы</option>
+						  <option value="Курсовые">Курсовые</option>
+							 <option value="Дипломная работа">Дипломная работа</option>
+							 <option value="Лекции">Лекции</option>
+						  <option value="Диск с работами">Диск с работами</option>
+						 <option value="Другое">Другое</option>
+						</select></p>
+						  <div class="form-error">{{ form.type_materials.errors }}</div>
+					 <p><label class="form-label" for="{{ form.subjectt.id_for_label }}">Дисциплина </label> {{ form.subjectt }}</p>
+						  <div class="form-error">{{ form.subjectt.errors }}</div>
+					 <p><label class="form-label" for="{{ form.description.id_for_label }}">Описание: </label> {{ form.description }}</p>
+						  <div class="form-error">{{ form.description.errors }}</div>
+					 <p><label class="form-label" for="{{ form.price.id_for_label }}">Цена </label> {{ form.price }}</p>
+						  <div class="form-error">{{ form.price.errors }}</div>
+					 <br>
+					 <div><center><h6>
+	Чтобы загрузить несколько файлов сразу, нужно зажать Ctrl и выбирать нужные файлы.
+					</h6></center></div>
+					 <br>
+<!--							<div class="form-file">-->
+<!--							  <input type="file" name="file" class="form-file-input" id="Customfile" multiple/>-->
+<!--							</div>-->
+					 <div class="mb-3">
+  						<label for="formFileMultiple" class="form-label">Файл</label>
+  						<input class="form-control" type="file" name="file" id="formFileMultiple" multiple>
+					 </div>
+
+<!--					 {{file_form.file}}-->
+<!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;					 -->
+<!--					 <div id="FileUpload">-->
+<!--						  <div class="wrapper">-->
+<!--							<div class="upload">-->
+<!--							  <input><span type="file" name="file" class="upload__button">Загрузить</span></input>-->
+<!--							</div>-->
+<!--							  {% if file == True%}-->
+<!--							<div class="uploaded uploaded&#45;&#45;one">-->
+<!--							  <i class="far fa-file-pdf"></i>-->
+<!--							  <div class="file">-->
+<!--								<div class="file__name">-->
+<!--								  <p>{{ form.file }}</p>-->
+<!--								  <i class="fas fa-times"></i>-->
+<!--								</div>-->
+<!--								<div class="progress">-->
+<!--								  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:10%"></div>-->
+<!--								</div>-->
+<!--							  </div>-->
+<!--							</div>-->
+<!--							  {% endif %}-->
+<!--					 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
         <div style="float: right; margin-bottom: 10%; margin-top: 10%;" class="form-group row" data-aos="fade-up">
 			      <button type="submit" class="btn btn-primary">ЗАГРУЗИТЬ</button >
 			  </div>

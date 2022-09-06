@@ -7,12 +7,13 @@ from django.conf.urls.static import static
 from django.urls import path, re_path, include
 
 from django.views.generic import TemplateView
+from django.views.i18n import JavaScriptCatalog
 from django.views.static import serve
 
 
 from . import views
 
-from .views import LoginUser
+from .views import LoginUser, show_file, write_help, show_helps
 
 urlpatterns = [
     path('', views.home, name='chat-home'),
@@ -33,6 +34,12 @@ urlpatterns = [
     path('nice_verify/', TemplateView.as_view(template_name='chat/registration/nice_verify.html'), name='nice_verify'),
     path('confirm_email/', TemplateView.as_view(template_name='chat/registration/confirm_email.html'), name="confirm_email"),
     path('', include('django.contrib.auth.urls')),
+    path('file/<int:file_id>/',show_file,name='file'),
+    path('help/',views.help,name='help'),
+    path('write_help/',write_help, name = 'write_help'),
+    path('find_help/', views.find_help, name = 'find_help'),
+    path('help/<int:help_id>/', show_helps, name='help'),
+    path('jsi18n', JavaScriptCatalog.as_view(),name = 'js-catlog',)
 
 ]
 if settings.DEBUG:

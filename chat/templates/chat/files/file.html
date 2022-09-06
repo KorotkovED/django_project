@@ -1,0 +1,20 @@
+{% extends 'chat/base.html' %}
+
+{% block content %}
+<br>
+<br>
+<center><h1>{{file.feed.title}}</h1></center>
+<br>
+<br>
+<div class="container class_form" data-aos="fade-up">
+    <h3>Институт: {{file.feed.institute}}</h3>
+    <h3>Курс: {{file.feed.number_course}}</h3>
+    <h3>Семестр: {{file.feed.number_semestr}}</h3>
+    <h3>Дисциплина: {{file.feed.subjectt}}</h3>
+    <h3>Тип материала: {{file.feed.type_materials}}</h3>
+    <h3>Описание: {{file.feed.description}}</h3>
+    <h3>Цена: {{file.feed.price}}</h3>
+        <center><h4><a href="{{file.file.url}}" download="{file.file.url}}">Купить</a></h4></center>
+
+</div>
+{% endblock %}

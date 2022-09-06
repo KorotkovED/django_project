@@ -1,0 +1,115 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+ {% block header %}
+<title>Написать объявление о помощи</title>
+{% endblock header %}
+{% block content %}
+
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>-->
+<br>
+<br>
+<div class="container class_form" data-aos="fade-up">
+			<div class="section-title">
+				<center><h2>Попросить о помощи</h2></center>
+			</div>
+	<br>
+	<br>
+
+<div><center><h6>
+	Чтобы вставить ссылку на облачное хранилище (диск), нужно скопировать ссылку в блокнот и блокнот прикрепить на сайт.
+</h6></center></div>
+  			<div class="row justify-content-center">
+				 <form method="POST" style="width: 50%;" enctype="multipart/form-data">
+					  {% csrf_token %}
+					 <div class="form_error"> {{form.non_field_errors }}</div>
+<!--						  {% for f in form %}-->
+<!--						  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label> {{ f }}</p>-->
+<!--						  <div class="form-error">{{ f.errors }}</div>-->
+<!--						  {% endfor %}-->
+<!--					         fields = ('number_course','number_semestr','type_materials','institute','subjectt','title','description','price')-->
+
+						  <p><label class="form-label" for="{{ form.titles.id_for_label }}">Заголовок: </label> {{ form.titles }}</p>
+						  <div class="form-error">{{ form.titles.errors }}</div>
+					 <p><label class="form-label" for="{{ form.course.id_for_label }}">Курс: </label> {{ form.course }}</p>
+						  <div class="form-error">{{ form.course.errors }}</div>
+					 <p><label class="form-label" for="{{ form.semestr.id_for_label }}">Семестр: </label> {{ form.semestr }}</p>
+						  <div class="form-error">{{ form.semestr.errors }}</div>
+
+					 <p><select name = "institutes" required class="custom-select" aria-label="Институт">
+						  <option selected>Институт</option>
+						  <option value="ИВТИ">ИВТИ</option>
+						  <option value="ГПИ">ГПИ</option>
+						  <option value="ИЭЭ">ИЭЭ</option>
+							 <option value="ИГВИЭ">ИГВИЭ</option>
+						  <option value="ИнЭИ">ИнЭИ</option>
+						  <option value="ИРЭ">ИРЭ</option>
+						 <option value="ИЭТЭ">ИЭТЭ</option>
+						  <option value="ИТАЭ">ИТАЭ</option>
+						  <option value="ИЭВТ">ИЭВТ</option>
+							 <option value="ЭнМИ">ЭнМИ</option>
+						 <option value="Другой">Другой</option>
+						</select></p>
+						  <div class="form-error">{{ form.institutes.errors }}</div>
+
+<!--					 <p><select name = "type_materials" required class="form-select" aria-label="Тип материала">-->
+<!--						  <option selected>Тип материала</option>-->
+<!--						  <option value="Практические работы">Практические работы</option>-->
+<!--						  <option value="Лабораторные работы">Лабораторные работы</option>-->
+<!--						  <option value="Курсовые">Курсовые</option>-->
+<!--							 <option value="Дипломная работа">Дипломная работа</option>-->
+<!--							 <option value="Лекции">Лекции</option>-->
+<!--						  <option value="Диск с работами">Диск с работами</option>-->
+<!--						 <option value="Другое">Другое</option>-->
+<!--						</select></p>-->
+<!--						  <div class="form-error">{{ form.type_materials.errors }}</div>-->
+					 <p><label class="form-label" for="{{ form.subjects.id_for_label }}">Дисциплина: </label> {{ form.subjects }}</p>
+						  <div class="form-error">{{ form.subjects.errors }}</div>
+					 <p><label class="form-label" for="{{ form.descriptions.id_for_label }}">Описание: </label> {{ form.descriptions }}</p>
+						  <div class="form-error">{{ form.descriptions.errors }}</div>
+<!--					 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+					 <div class="row justify-content-left">
+					 	<div class="col-lg-6 col-sm-6">
+            				<label for="date">Дедлайн: </label>
+            				<input id="date" class="form-control" name="date" type="date" />
+            				<span id="DateSelected"></span>
+        				</div>
+					 </div>
+<!--					 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--					 <div>-->
+<!--						 <script type="text/javascript" src="{% url 'js-catlog' %}"></script>-->
+<!--					 <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>-->
+<!--&lt;!&ndash;					<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>&ndash;&gt;-->
+<!--					<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>-->
+<!--					 {{form.media}}-->
+<!--					 <p><label class="form-label" for="{{ form.time.id_for_label }}">Время: </label> {{ form.time }}</p>-->
+<!--						  <div class="form-error">{{ form.time.errors }}</div>-->
+<!--					  <p><label class="form-label" for="{{ form.date.id_for_label }}">Дата: </label> {{ form.date}}</p>-->
+<!--						  <div class="form-error">{{ form.date.errors }}</div>-->
+<!--					 </div>-->
+					 <p><label class="form-label" for="{{ form.prices.id_for_label }}">Цена: </label> {{ form.prices }}</p>
+						  <div class="form-error">{{ form.prices.errors }}</div>
+					 {{file_form.file}}
+        <div style="float: right; margin-bottom: 10%; margin-top: 10%;" class="form-group row" data-aos="fade-up">
+			      <button type="submit" class="btn btn-primary">Попросить о помощи</button >
+			  </div>
+    </form>
+
+
+			</div>
+  		</div>
+
+ <script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker();
+        });
+		let date = document.getElementById('date')
+
+	startDate.addEventListener('change',(e)=>{
+	  let startDateVal = e.target.value
+	  document.getElementById('DateSelected').innerText = date
+})
+    </script>
+{% endblock %}

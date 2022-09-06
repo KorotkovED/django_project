@@ -1,0 +1,182 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block header %}
+<title>Стать помощником</title>
+{% endblock header %}
+{% block content %}
+<link href="/examples/vendors/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.wp-block.property.list {
+  border: 1px solid #e0eded;
+  margin-bottom: 15px !important;
+}
+.wp-block {
+  margin: 0 0 15px 0;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+  position: relative;
+  cursor: default;
+  border-radius: 2px;
+}
+.wp-block.property.list {
+  padding: 15px 15px 0 15px;
+}
+.wp-block.property.list {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+.wp-block .wp-block-body {
+  padding: 15px;
+}
+.wp-block.property.list .wp-block-img {
+  display: table-cell;
+  width: 250px;
+}
+.wp-block.property.list .wp-block-img img {
+  width: 100%;
+}
+.wp-block.property.list .wp-block-content .content-title {
+  font-size: 20px;
+  color: #3498db;
+  margin-bottom: 5px;
+}
+.wp-block.property.list .wp-block-body .wp-block-content {
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 15px;
+}
+.wp-block.property.list .wp-block-content .description {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0eded;
+}
+.wp-block.property.list .wp-block-footer ul.aux-info {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  background: #fcfcfc;
+  border-top: 1px solid #e0eded;
+}
+.wp-block.property.list .wp-block-footer ul.aux-info li {
+  display: table-cell;
+  padding: 10px 15px;
+  vertical-align: middle;
+  border-right: 1px solid #e0eded;
+  color: #000000
+}
+.ribbon.base {
+  background: #3498db;
+  color: #fff;
+  border-right: 5px solid #1f1212;
+}
+.ribbon {
+  position: absolute;
+  top: 20px;
+  right: -5px;
+  padding: 15px;
+}
+.base {
+  background: #3498db;
+  color: #fff !important;
+}
+.ribbon:before, .ribbon:after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  border-left: 10px solid transparent;
+}
+.ribbon:before {
+  top: 0;
+}
+.ribbon.base:before {
+  border-top: 27px solid #3498db;
+}
+.ribbon.base:after {
+  border-bottom: 27px solid #3498db;
+}
+.ribbon:after {
+  bottom: 0;
+}
+</style>
+<br>
+<br>
+<br>
+
+         <div class="section-title">
+                <center><h2>Стать помощником</h2></center>
+			</div>
+<br>
+<br>
+<br>
+{% for bd in page_obj %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="wp-block property list">
+        <div class="wp-block-body">
+          <div class="wp-block-img">
+            <a href="{{bd.get_absolute_url }}">
+              <img src="https://fin-az.ru/assets/i/ai/4/2/5/i/2861514.jpg" alt="">
+            </a>
+          </div>
+          <div class="wp-block-content">
+            <small>
+<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ bd.feed.createdtimes}}</small>
+            <h3 class="content-title">{{ bd.feed.titles|linebreaks|truncatewords:2}}</h3>
+            <p class="description">{{ bd.feed.descriptions|linebreaks|truncatewords:5 }}</p>
+            <span class="pull-left">
+                <p>Дисциплина: {{ bd.feed.subjects}}</p>
+            <span class="pull-right">
+              <span class="capacity">
+                <i class="fa fa-user"></i> {{ bd.feed.user}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="wp-block-footer">
+          <ul class="aux-info">
+              <li>Курс: {{ bd.feed.course }}</li>
+            <li><span class=" glyphicon glyphicon-comment" aria-hidden="true"></span> Сем: {{ bd.feed.semestr }}</li>
+            <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Институт: {{ bd.feed.institutes }} </li>
+            <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>Дедлайн: {{ bd.feed.date }} </li>
+            <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Цена: {{ bd.feed.prices }} </li>
+            <li><a href="{{bd.get_absolute_url }}">Подробнее</a></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>
+{% endfor %}
+<br>
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+    <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}"> < </a>
+    </li>
+              {% endif %}
+      {% for p in page_obj.paginator.page_range %}
+      {% if page_obj.number == p %}
+    <li class="page-item active">
+      <a class="page-link"> {{ p }} </a>
+    </li>
+      {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2  %}
+    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+      {% endif %}
+      {% endfor %}
+                    {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+        </li>
+        {% endif %}
+
+  </ul>
+</nav>
+ {% endif %}
+{% endblock %}

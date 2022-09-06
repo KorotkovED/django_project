@@ -1,11 +1,13 @@
 .idea/
 
+
 # Created by https://www.gitignore.io/api/macos,linux,django,python,pycharm
 
 ### Django ###
 *.log
 *.pot
 *.pyc
+.env
 __pycache__/
 local_settings.py
 db.sqlite3
